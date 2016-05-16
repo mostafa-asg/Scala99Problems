@@ -24,6 +24,12 @@ class S99Int(val num : Int) {
 
   }
 
+  def totient() : Int = {
+
+    List.range(1,num+1).map( k => gcd(num,k) ).count( _ == 1 )
+
+  }
+
 }
 
 object S99Int {
