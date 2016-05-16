@@ -47,6 +47,33 @@ class S99Int(val num : Int) {
     internal(num , primes)
   }
 
+  def primeFactorMultiplicity_list() : List[(Int,Int)] = {
+
+    def distinctList[T](ls : List[T]) : List[List[T]] = ls match {
+
+      case Nil => Nil
+      case head :: tail => {
+        val sp = ls.span( i => i == head )
+        sp._1 :: distinctList( sp._2 )
+      }
+
+    }
+
+    val primeFactorList = primeFactors()
+
+    val olagh = distinctList( primeFactorList )
+
+    distinctList( primeFactorList ).map( ls => (ls.head,ls.size) )
+  }
+
+  def primeFactorMultiplicity_map() : Map[Int,Int] = {
+
+    val primeFactorList = primeFactors()
+
+    primeFactorList.groupBy( i => i ).map( kv => kv._1 -> kv._2.size )
+
+  }
+
 }
 
 object S99Int {
