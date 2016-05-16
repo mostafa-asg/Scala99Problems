@@ -30,11 +30,30 @@ class S99Int(val num : Int) {
 
   }
 
+  def primeFactors() : List[Int] = {
+
+    def internal( n:Int , primes : Stream[Int] ) : List[Int] = {
+
+      (n,primes) match {
+
+        case (n , _) if n == 1 => Nil
+        case (n, head #:: tail) if (n%head==0) => head :: internal(n/head , primes)
+        case (n, head #:: tail) => internal( n , tail)
+
+      }
+
+    }
+
+    internal(num , primes)
+  }
+
 }
 
 object S99Int {
 
   implicit def intToS99Int(n : Int) : S99Int = new S99Int(n)
+
+  val primes = Stream.cons(2, Stream.from(3, 2) filter { _.isPrime })
 
   def gcd( a : Int , b : Int ) : Int = {
 
