@@ -74,6 +74,41 @@ class S99Int(val num : Int) {
 
   }
 
+  def goldbach() : (Int,Int) = {
+
+    def check[T]( num : T , ls : List[T] )(f : (T,T) => Boolean ) : Option[ (T,T) ] = {
+      ls match {
+        case Nil => None
+        case head :: tail => {
+          if ( f(num,head) )
+            Some( (num,head) )
+          else
+            check( num , tail ) (f)
+        }
+      }
+    }
+
+    def primeBetween(a:Int,b:Int) : List[Int] = {
+      List.range(a,b+1).filter( x=> x.isPrime )
+    }
+
+    def doGoldbach( ls : List[Int] ) : (Int,Int) = ls match {
+
+      case head :: tail => {
+        check(head,ls)( (a,b) => a+b == num) match {
+          case Some(tuple) => (tuple._1,tuple._2)
+          case None => doGoldbach( tail )
+        }
+      }
+
+      case _ => throw new RuntimeException("could not find goldbach for " + num)
+
+    }
+
+    assert( num>2 &&  num % 2 == 0 )
+    doGoldbach(primeBetween(2,num))
+  }
+
 }
 
 object S99Int {
