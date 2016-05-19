@@ -2,10 +2,27 @@ package com.github.logic
 
 /**
   *
-  * @author Mostafa Asgari 
+  * @author Mostafa Asgari
+  * Email : mostafa.asg@gmail.com
+  * website https://bigdatacode.wordpress.com/
   * @since 5/19/16
   */
+
+class S99Logic(a:Boolean) {
+
+  def and(b:Boolean) = S99Logic.and(a,b)
+  def or(b:Boolean) = S99Logic.or(a,b)
+  def xor(b:Boolean) = S99Logic.xor(a,b)
+  def nand(b:Boolean) = S99Logic.nand(a,b)
+  def nor(b:Boolean) = S99Logic.nand(a,b)
+  def impl(b:Boolean) = S99Logic.impl(a,b)
+  def equ(b:Boolean) = S99Logic.equ(a,b)
+
+}
+
 object S99Logic {
+
+  implicit def booleanToS99Logic( a:Boolean ) : S99Logic = new S99Logic(a)
 
   def not( a : Boolean ) = a match {
     case true => false
